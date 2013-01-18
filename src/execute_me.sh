@@ -61,4 +61,4 @@ cp $d1/matlab/RunBarcode_dist.m $src_dir; cp $d1/javaplex/load_javaplex.m $src_d
 # QSUB JOB
 echo job_name=$job_name
 echo stream_type=$stream_type
-#qsub -l mem=${m},time=${t} -R y -V -N j`date +%s` -e $ef -o $of $d1/qsub.RunBarcode.sh $data_type $dist_type $run_dir $out_dir $ratio $maxfilt $max_dim $num_div $stream_type
+qsub -l mem=${m},time=${t} -R y -V -N j`date +%s` -e $ef -o $of $d1/qsub.RunBarcode.sh $data_type $dist_type $run_dir $out_dir $ratio $maxfilt $max_dim $num_div $stream_type

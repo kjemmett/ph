@@ -24,7 +24,7 @@ job_name=$data_type.$dist_type
 echo stream_type=$stream_type
 cd $idir/src
 
-/nfs/apps/matlab/current/bin/matlab -nodisplay -r "RunBarcode_phage('$job_name','$run_dir', '$stream_type', '$num_div', '$max_filt', '$max_dim', '$ratio'); exit;"
+/nfs/apps/matlab/current/bin/matlab -nodisplay -r "RunBarcode_dist('$job_name','$run_dir', '$stream_type', '$num_div', '$max_filt', '$max_dim', '$ratio'); exit;"
 # python parse_betti_info.py -S $data_type -D $dist_type -I $idir
 
 
