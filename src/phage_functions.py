@@ -8,7 +8,6 @@ def compute_pmatrix(X):
     P = np.zeros((N, N))
     
     for i in range(N):
-        print i
         a = sum(X[i, :])
         for j in range(i + 1, N):
             b = sum(X[j, :])
