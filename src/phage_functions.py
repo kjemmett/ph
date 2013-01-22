@@ -116,3 +116,15 @@ def parse_component_vertices_txt(fid):
         clust_dict['clusters'].append(clust)
 
     return clust_dict
+
+
+def annotate_barcodes(barcodes, metadata_df):
+    """Take input list of barcodes and a metadata dataframe
+    and annotate the elements of the generators
+    NOTE: unfinished"""
+    for barcode in barcodes:
+        start = barcode['start']
+        stop = barcode['stop']
+        generators = barcode['generators']
+    
+    return 0
