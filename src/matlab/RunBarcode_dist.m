@@ -58,9 +58,10 @@ fprintf(fid,betti_info);
 fclose(fid);
 
 % plot barcodes
-options.filename = [output_dir '/' prefix '.png'];
+file_format = 'eps'
+options.filename = [output_dir '/' prefix '.' file_format];
 options.max_filtration_value = max_filt;
 options.max_dimension = max_dim - 1;
 options.caption = prefix;
-options.file_format = 'eps';
+options.file_format = file_format;
 plot_barcodes(filt_index_intervals,options);
