@@ -26,10 +26,12 @@ datestr=`date "+%y%m%d"`
 run_dir=$d1/../cache/`date +%s`-$job_name.$datestr.R$ratio.MF$maxfilt.DIV$num_div.DIM$max_dim
 log_dir=$run_dir/log
 src_dir=$run_dir/src
+dat_dir=$run_dir/data
 out_dir=$run_dir/output
 mkdir -p $run_dir
 mkdir -p $log_dir
 mkdir -p $src_dir
+mkdir -p $dat_dir
 mkdir -p $out_dir
 mkdir -p $src_dir/javaplex
 
@@ -49,7 +51,7 @@ m=64G; t=2::; echo -Xmx62000M > $src_dir/java.opts
 # m=192G; t=2::; echo -Xmx190000m > $src_dir/java.opts
 
 # COPY DATA FILE
-cp $d1/../data/$job_name.csv $run_dir/
+cp $d1/../data/$job_name.csv $dat_dir
 
 # COPY ANNOTATION AND POSTPROCESSING FILES
 #cp $d1/../data/$data_type.idx.annotations.txt $run_dir/

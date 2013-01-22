@@ -7,26 +7,28 @@ stream_type = varargin{3};
 num_div = str2num(varargin{4});
 max_filt = str2num(varargin{5});
 max_dim = str2num(varargin{6});
-if stream_type=='Witness'
+if nargin>6
     ratio = str2num(varargin{7});
 end
+
+original_dir = pwd;
 
 prefix = [job_id '.F' num2str(max_filt) '.D' num2str(num_div) '.d' num2str(max_dim)];
 output_dir = [run_dir '/output'];
 
 % load_javaplex
-addpath([run_dir '/src/javaplex'])
+cd([run_dir '/src/javaplex'])
 load_javaplex
+cd(original_dir)
 
 % load data
-d = csvread([run_dir '/' job_id '.csv'])
+d = csvread([run_dir '/data/' job_id '.csv']);
 
 % construct metric space from distance matrix
 m_space = metric.impl.ExplicitMetricSpace(d);
 
 % construct filtration
-disp('Constructing stream')
-disp(['stream_type = ' stream_type])
+disp(['Constructing ' stream_type ' stream'])
 if stream_type=='VietorisRips'
     stream = api.Plex4.createVietorisRipsStream(m_space, max_dim, max_filt, num_div);
 else
