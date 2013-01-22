@@ -118,13 +118,31 @@ def parse_component_vertices_txt(fid):
     return clust_dict
 
 
-def annotate_barcodes(barcodes, metadata_df):
+def annotate_barcodes(barcodes, mddf, savefile):
     """Take input list of barcodes and a metadata dataframe
-    and annotate the elements of the generators
-    NOTE: unfinished"""
-    for barcode in barcodes:
-        start = barcode['start']
-        stop = barcode['stop']
-        generators = barcode['generators']
-    
-    return 0
+    and annotate the elements of the generators. output as
+    textfile"""
+
+    f = open(savefile, 'w')
+
+    max_dim = len(barcodes)
+    for dim in range(max_dim):
+        for barcode in barcodes[dim]:
+            start = barcode['start']
+            stop = barcode['stop']
+            generators = barcode['generators']
+            generator_string = ' '.join(
+                    [str(a) for b in generators for b in a])
+            range_string = ''.join(['[', str(start), ', ', str(stop), '): '])
+            header_string = ''.join([range_string, generator_string,'\n'])
+            f.write(header_string)
+            g_list = [g[1] for g in generators]
+            g_uniq = set([item for sublist in g_list for item in sublist])
+            for g in g_uniq:
+                virus_id = mddf.ix[g]['ncbi_id']
+                virus_name = mddf.ix[g]['virusname']
+                virus_type = mddf.ix[g]['virustype']
+                gen_str = '\t[%d] %s: %s (%s)\n' % (
+                        g, virus_id, virus_name, virus_type)
+                f.write(gen_str)
+    f.close()
