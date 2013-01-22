@@ -1,35 +1,34 @@
-function RunBarcode(varargin)
+function RunBarcode_dist(varargin)
 
 % parse input arguments
 job_id = varargin{1};
-data_path = varargin{2};
+run_dir = varargin{2};
 stream_type = varargin{3};
-data_path = varargin{4};
-output_dir = varargin{5};
-num_div = str2num(varargin{6});
-max_filt = str2num(varargin{7});
-max_dim = str2num(varargin{8});
+num_div = str2num(varargin{4});
+max_filt = str2num(varargin{5});
+max_dim = str2num(varargin{6});
 if stream_type=='Witness'
-    ratio = str2num(varargin{9});
+    ratio = str2num(varargin{7});
 end
 
 prefix = [job_id '.F' num2str(max_filt) '.D' num2str(num_div) '.d' num2str(max_dim)];
+output_dir = [run_dir '/output'];
 
 % load_javaplex
-addpath([proj_dir '/src/javaplex'])
+addpath([run_dir '/src/javaplex'])
 load_javaplex
 
 % load data
-d = csvread(data_path)
+d = csvread([run_dir '/' job_id '.csv'])
 
 % construct metric space from distance matrix
 m_space = metric.impl.ExplicitMetricSpace(d);
 
-% construct stream
+% construct filtration
 disp('Constructing stream')
 disp(['stream_type = ' stream_type])
 if stream_type=='VietorisRips'
-    stream = api.Plex4.createVietorisRipsStream(m_space,max_dim, max_filt, num_div);
+    stream = api.Plex4.createVietorisRipsStream(m_space, max_dim, max_filt, num_div);
 else
     num_landmarks = max(5,round(size(d,1)/ratio)) 
     maxmin_selector = api.Plex4.createMaxMinSelector(m_space, num_landmarks);
