@@ -58,7 +58,7 @@ def parse_barcode_txt(fid):
     """Parse the output of an unannotated betti_info.txt
     generated during a MATLAB run of javaplex. Return a dict
     containing the barcode information
-    NOTE: Moving from MATLAB to python we need to reindex by 1"""
+    NOTE: For some reason, do not need to reindex by 1"""
     import re
 
     # compile regexp to match generator elements
@@ -88,7 +88,7 @@ def parse_barcode_txt(fid):
                 else:
                     sign = '+'
                 # map indices of generator vertices
-                elem = map(lambda x: int(x) - 1, p2.findall(elem_str))
+                elem = map(lambda x: int(x), p2.findall(elem_str))
                 generators.append([sign, elem])
             bar = {'start' : start, 'stop' : stop, 'generators' : generators}
             barcodes[dim]['barcodes'].append(bar)
@@ -127,12 +127,12 @@ def annotate_barcodes(barcodes, mddf, savefile):
 
     max_dim = len(barcodes)
     for dim in range(max_dim):
-        for barcode in barcodes[dim]:
+        for barcode in barcodes[dim]['barcodes']:
             start = barcode['start']
             stop = barcode['stop']
             generators = barcode['generators']
             generator_string = ' '.join(
-                    [str(a) for b in generators for b in a])
+                    [str(a) for b in generators for a in b])
             range_string = ''.join(['[', str(start), ', ', str(stop), '): '])
             header_string = ''.join([range_string, generator_string,'\n'])
             f.write(header_string)
