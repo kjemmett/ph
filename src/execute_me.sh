@@ -1,23 +1,14 @@
 #!/bin/sh
 
 # PARSE INPUT
-# Default to 'VietorisRips'
-# unless 'lazywitness' specified
-if [ "$1" ]
-then
-    stream_type=$1
-else
-    stream_type=VietorisRips
-fi
-
 # JOB PARAMETERS
-data_type=phage.s277
-dist_type=newmatrix3
-stream_type=VietorisRips
+data_type=pog2012
+dist_type=smat.nonull
+stream_type=LazyWitness
 num_div=1000000000
 maxfilt=100
-ratio=1
-max_dim=2
+ratio=1.5
+max_dim=1
 job_name=$data_type.$dist_type
 
 # BUILD DIRECTORIES

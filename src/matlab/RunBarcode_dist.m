@@ -22,16 +22,16 @@ load_javaplex
 cd(original_dir)
 
 % load data
-d = csvread([run_dir '/data/' job_id '.csv']);
+d = csvread([run_dir '/data/' job_id '.csv'], 1, 1);
 
 % construct metric space from distance matrix
 m_space = metric.impl.ExplicitMetricSpace(d);
 
 % construct filtration
 disp(['Constructing ' stream_type ' stream'])
-if stream_type=='VietorisRips'
+if strcmp(stream_type, 'VietorisRips')
     stream = api.Plex4.createVietorisRipsStream(m_space, max_dim, max_filt, num_div);
-else
+elseif strcmp(stream_type, 'LazyWitness')
     num_landmarks = max(5,round(size(d,1)/ratio)) 
     maxmin_selector = api.Plex4.createMaxMinSelector(m_space, num_landmarks);
     maxmin_points = maxmin_selector.getLandmarkPoints()+1;
