@@ -11,13 +11,17 @@ def compute_pmatrix(X):
     P = np.zeros((N, N))
     
     for i in range(N):
+        print "%d / %d" % (i + 1, N)
         a = sum(X[i, :])
         for j in range(i + 1, N):
             b = sum(X[j, :])
             c = np.dot(X[i, :], X[j, :])
             C = min(a, b)
-            P[i, j] = sum(hypergeom.pmf(range(c, C + 1), n, a, b))
-
+            if C is not 0:
+                P[i, j] = sum(hypergeom.pmf(range(c, C + 1), n, a, b))
+            else:
+                # C==0 will yield a nan in hypergeom formula
+                P[i, j] = 1
     P = P + P.T
     return P
 

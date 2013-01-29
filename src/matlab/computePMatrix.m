@@ -3,6 +3,7 @@ function P = computePMatrix(X)
 [N, n] = size(X);
 
 for i = 1:N
+    disp(i)
     a = sum(X(i, :));
     for j = i:N
         b = sum(X(j, :));
