@@ -3,18 +3,18 @@
 # PARSE INPUT
 # JOB PARAMETERS
 data_type=pog2012
-dist_type=smat.nonull
-stream_type=LazyWitness
-num_div=1000000000
-maxfilt=100
-ratio=1.5
+dist_type=smat.2
+stream_type=VietorisRips
+num_div=1000
+maxfilt=300
+ratio=2
 max_dim=1
 job_name=$data_type.$dist_type
 
 # BUILD DIRECTORIES
 d1=`pwd`
 datestr=`date "+%y%m%d"`
-run_dir=$d1/../cache/`date +%s`-$job_name.$datestr.R$ratio.MF$maxfilt.DIV$num_div.DIM$max_dim
+run_dir=$d1/../cache/`date +%s`-$job_name.$datestr.$stream_type.R$ratio.MF$maxfilt.DIV$num_div.DIM$max_dim
 log_dir=$run_dir/log
 src_dir=$run_dir/src
 dat_dir=$run_dir/data
