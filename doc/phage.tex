@@ -8,18 +8,46 @@
 \usepackage{subfigure}  % use for side-by-side figures
 \usepackage{fullpage}   % one-inch margins
 
-\begin{document}
 
+%%% TITLE %%%
 \title{phage: Topological Analysis of Phage Genome Relationships}
 \author{Kevin Emmett and friends}
 \date{\today}
 
+\begin{document}
+
 \maketitle
 
+%%% ABSTRACT %%%
 \begin{abstract}
-    Development of a consistent phage taxonomy is difficult.
+Development of a consistent phage taxonomy is difficult.
 \end{abstract}
 
-\section{Introduction}
+%%% INTRODUCTION %%%
+\section*{Introduction}
+Phages are diverse.
+Gene content analysis has been used previously to determine relationships.
+Existing taxonomy established by the ICTV.
+Genomically different phages can be classified together strictly based on morphological similarity.
 
+%%% RESULTS %%%
+\section*{Results}
+
+%%% DISCUSSION %%%
+\section*{Discussion}
+
+%%% METHODS %%%
+\section*{Methods}
+
+\subsection*{Bacteriophage genomic data}
+Bacteriophage gene profiles were taken from the POG dataset, compiled in \cite{Kristensen13}.
+This dataset contained 1048 bacteriophage genomes and 4542 gene families.
+Several genomic distance measures were used.
+First, a similarity matrix was constructed as described in \cite{LimaMendez08}.
+
+\subsection*{Persistent Homology}
+The software package javaplex was used to compute persistence barcodes from the distance matrix described above.
+Zero-dimensional homology generates a hierchical clustering of phage genomes that can be used for an initial taxonomic classification.
+One-dimensional homology is reflective of loops within the dataset, indicating sets of genomes for which a strictly tree-like topology is inadequate.
+A measure of topological obstruction can be defined.
 \end{document}
