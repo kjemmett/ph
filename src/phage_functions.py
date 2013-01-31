@@ -2,11 +2,34 @@ import numpy as np
 import pandas as pd
 
 
+def compute_pval(ra, rb):
+    from scipy.stats import hypergeom
+    """
+    Compute the pval between two binary gene
+    profiles. pval is defined using hypergeometric
+    formula.
+
+    Input:
+        ra: series
+        rb: series
+    """
+    n = len(ra)
+    a = sum(ra)
+    b = sum(rb)
+    c = np.dot(ra, rb)
+    C = min(a ,b)
+    if C is not 0:
+        pval = sum(hypergeom.pmf(range(c, C+1), n, a, b))
+    else:
+        pval = 1
+
+    return pval
+
+
 def compute_pmatrix(X):
     """Computes the p-matrix of input binary matrix `X` using 
     hypergeometric pmf. See Lima-Mendez 2008.
     NOTE: Much slower than MATLAB. Investigate"""
-    from scipy.stats import hypergeom
     (N, n) = X.shape
     P = np.zeros((N, N))
     
